@@ -1,9 +1,18 @@
 # TP-Apps-Informaticas
 
-
 # Instructions
 
+These instructions shows you how to set up an Angular 4 Project. If you are cloning this repository into your computer, then run the following commands:
+
+   cd BookingRecommendationSystem
+   npm install
+
+Requirements: 
+	nodejs
+
+
 Important: you need to use at least 1GB of disk memory.
+
 
 1) Install the latest version of node
 
@@ -18,7 +27,7 @@ Important: you need to use at least 1GB of disk memory.
 
 3) Set up a new project
 
-   To start an Angular Project , run the following command
+   To start an Angular Project , run:
 
    ng new <project_name> 
 
@@ -33,4 +42,7 @@ Important: you need to use at least 1GB of disk memory.
 
    It binds to host port 4200 by default
 
+Additional Notes
 
+To unbind a host port, run 
+  fuser -k <port>/tcp
