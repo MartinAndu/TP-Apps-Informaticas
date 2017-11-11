@@ -1,6 +1,7 @@
 $(function() {
 
-	var app_id = '260123821178343';
+
+ 	var app_id = '260123821178343';
 	var scopes = 'email, user_friends, user_online_presence';
 
 	var btn_login = '<a href="#" id="login" class="btn btn-primary">Iniciar sesión</a>';
@@ -10,6 +11,11 @@ $(function() {
 					  "<img>"+
 					  "<a href='#' id='logout' class='btn btn-danger'>Cerrar sesión</a>"+
 					  "</div>";
+   var init_session = `
+        <div>
+        <a id='initApp' class="btn btn-primary">Comenzar</a>
+        </div>
+  `;
 
 	window.fbAsyncInit = function() {
 
@@ -46,9 +52,13 @@ $(function() {
   	var getFacebookData =  function() {
   		FB.api('/me', function(response) {
 	  		$('#login').after(div_session);
+        $('#logout').after(init_session);
 	  		$('#login').remove();
 	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
 	  		$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
+        $('#initApp').on('click', function() {
+            welcomeCtrl.init();
+        })
 	  	});
   	}
 
@@ -93,3 +103,4 @@ $(function() {
   	})
 
 })
+
