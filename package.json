@@ -1,0 +1,22 @@
+{
+  "name": "tp-apps-informaticas",
+  "version": "1.0.0",
+  "description": "TripsRecommendationSystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartinAndu/TP-Apps-Informaticas.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartinAndu/TP-Apps-Informaticas/issues"
+  },
+  "homepage": "https://github.com/MartinAndu/TP-Apps-Informaticas#readme",
+  "dependencies": {
+    "firebase": "^4.6.2"
+  }
+}
