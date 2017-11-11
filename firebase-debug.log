@@ -1,0 +1,28 @@
+[debug] [2017-11-11T01:40:13.990Z] ----------------------------------------------------------------------
+[debug] [2017-11-11T01:40:13.995Z] Command:       /usr/bin/nodejs /usr/bin/firebase serve
+[debug] [2017-11-11T01:40:13.996Z] CLI Version:   3.14.0
+[debug] [2017-11-11T01:40:13.996Z] Platform:      linux
+[debug] [2017-11-11T01:40:13.996Z] Node Version:  v4.6.2
+[debug] [2017-11-11T01:40:13.997Z] Time:          Fri Nov 10 2017 22:40:13 GMT-0300 (-03)
+[debug] [2017-11-11T01:40:13.997Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-11T01:40:14.015Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-11T01:40:14.016Z] > authorizing via signed-in user
+[debug] [2017-11-11T01:40:14.020Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/viajes-b8c6b  
+ Fri Nov 10 2017 22:40:14 GMT-0300 (-03)
+[debug] [2017-11-11T01:40:15.291Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-11T01:40:15.295Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/viajes-b8c6b/tokens  
+ Fri Nov 10 2017 22:40:15 GMT-0300 (-03)
+[debug] [2017-11-11T01:40:16.371Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/ezequiel/misWebs/TP-Apps-Informaticas/BookingRecommendationSystem/pagina'...
+[info] 
+[debug] [2017-11-11T01:40:16.381Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/viajes-b8c6b  
+ Fri Nov 10 2017 22:40:16 GMT-0300 (-03)
+[debug] [2017-11-11T01:40:17.505Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-11T01:40:17.506Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/643633949992/clients/_:getWebAppConfig  
+ Fri Nov 10 2017 22:40:17 GMT-0300 (-03)
+[debug] [2017-11-11T01:40:18.714Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+

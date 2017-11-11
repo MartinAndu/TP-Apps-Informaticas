@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.1/firebase-auth.js"></script>
+
+
+</head>
+<body>
+	<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD-GwEWiQ9hgh_Z-2Z3dpYy0Hi9Xrddu24",
+    authDomain: "viajes-b8c6b.firebaseapp.com",
+    databaseURL: "https://viajes-b8c6b.firebaseio.com",
+    projectId: "viajes-b8c6b",
+    storageBucket: "viajes-b8c6b.appspot.com",
+    messagingSenderId: "643633949992"
+  };
+  var prueba = firebase.initializeApp(config);
+  console.log(prueba);
+	
+  function IngresoFacebook() {
+  if (!firebase.auth().currentUser){
+    var provider = new firebase.auth.FacebookAuthProvider();
+    
+    provider.addScope ('public_profile');
+
+    firebase.auth().signInWithPopup(provider).then (function(result){
+    		console.log(result)
+        var token = result.credential.accesstoken;
+        var profile =  result.additionalUserInfo.profile.first_name;
+        console.log(profile)
+        var user = result.user;
+
+        var name =  user.displayName;
+        console.log(name);
+        
+
+
+    }).catch(function (error){
+
+      var errorCode = error.Code;
+
+      var errorMessage = error.message;
+
+      var erroremail = error.email;
+
+      var credential = error.credential;
+
+      if (errorCode=='auth/account-exists-with-different-credential'){
+        alert ('Es el mismo usuario');
+      }
+
+    });
+  }else{
+    firebase.auth().signOut();
+  }
+}
+
+
+</script>
+
+<button id="btn-facebook">Conectar con Facebook</button>
+
+<script>
+
+  document.getElementById('btn-facebook').addEventListener('click',IngresoFacebook,false);
+</script>
+</body>
+</html>

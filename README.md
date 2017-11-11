@@ -1,48 +1,28 @@
 # TP-Apps-Informaticas
 
-# Instructions
+# Instructiones
 
-These instructions shows you how to set up an Angular 4 Project. If you are cloning this repository into your computer, then run the following commands:
+~~~
+Hay que instalar node 
 
-   cd BookingRecommendationSystem
-   npm install
+    1. sudo apt-get update
+    2. sudo apt-get install nodejs
+		3. sudo apt-get install npm
+~~~
 
-Requirements: 
-	nodejs
+~~~
+Luego instalar la biblioteca de firebase
 
+		npm install -g firebase-tools
+~~~
 
-Important: you need to use at least 1GB of disk memory.
+~~~
+Estando en el directorio raiz del proyecto, ejecutar
 
+		- **firebase login** Esto nos loguea para poder utilizar firebase
 
-1) Install the latest version of node
+		- **firebase serve** Esto nos crea un servidor localhost para probar la aplicación en forma local
 
-	wget -qO- https://deb.nodesource.com/setup_8.x | sudo bash -
-	sudo apt-get install -y nodejs
+		- **firebase deploy** Sube la aplicación al hosting
+~~~
 
-2) Install Angular CLI
-	
-	sudo npm install -g @angular/cli
-
-   ( sudo may not be required )
-
-3) Set up a new project
-
-   To start an Angular Project , run:
-
-   ng new <project_name> 
-
-   Installs the required packages 
-
-   (Make sure to have enough space on your disk!)
-
-4) Launch Angular Server
-
-   cd <project_name>
-   ng serve --open
-
-   It binds to host port 4200 by default
-
-Additional Notes
-
-To unbind a host port, run 
-  fuser -k <port>/tcp
