@@ -5,30 +5,40 @@
 	<title>Prueba de login de Facebook API</title>
 
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="main.js"></script>
-
+	<script src="main.js" type="text/javascript"></script>
+	<script src="/app/scripts/controllers/init/welcomeCtrl.js" type="text/javascript"></script>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
+	<link rel="stylesheet" type="/app/styles/jquery.fancybox.css" href="">
+
+
 	<link rel="stylesheet" href="main.css">
 </head>
 <body>
-	<h1>Facebook SDK login con Javascript</h1>
+		<div id="app">
 
-	<a href="#" id="login" class="btn btn-primary">Iniciar sesión</a>
-	
-	<script>
-	// Load the SDK asynchronously
-	  (function(d, s, id) {
-	    var js, fjs = d.getElementsByTagName(s)[0];
-	    if (d.getElementById(id)) return;
-	    js = d.createElement(s); js.id = id;
-	    js.src = "https://connect.facebook.net/en_US/sdk.js";
-	    fjs.parentNode.insertBefore(js, fjs);
-	  }(document, 'script', 'facebook-jssdk'));
-	 </script>
+		
+		<script src="/app/scripts/resources/jquery.fancybox.js" rel="stylesheet"></script>
+
+
+		<h1>Facebook SDK login con Javascript</h1>
+
+		<a href="#" id="login" class="btn btn-primary">Iniciar sesión</a>
+		<script>
+		$(document).ready(function() {
+			// Load the SDK asynchronously
+			  (function(d, s, id) {
+			    var js, fjs = d.getElementsByTagName(s)[0];
+			    if (d.getElementById(id)) return;
+			    js = d.createElement(s); js.id = id;
+			    js.src = "https://connect.facebook.net/en_US/sdk.js";
+			    fjs.parentNode.insertBefore(js, fjs);
+			  }(document, 'script', 'facebook-jssdk'));
+			 });
+			 </script>
 </body>
 </html>
