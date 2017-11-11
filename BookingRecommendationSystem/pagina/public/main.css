@@ -21,6 +21,10 @@ img {
 	width: 100%;
 }
 
+.fancybox-outer {
+	background-color: white;
+}
+
 .bottom-space {
 	margin-top: 4%;
 }
@@ -32,8 +36,8 @@ img {
 
 }
 
+
 body {
     background-image: url("https://firebase.google.com/_static/images/firebase/touchicon-180.png");
-    background-color: #cccccc;
 }
 

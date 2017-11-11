@@ -7,19 +7,24 @@
 	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script src="main.js" type="text/javascript"></script>
 	<script src="/app/scripts/controllers/init/welcomeCtrl.js" type="text/javascript"></script>
-	<script src="/app/scripts/resources/jquery.fancybox.min.js"type="text/javascript"></script>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
+	<link rel="stylesheet" type="/app/styles/jquery.fancybox.css" href="">
+
+
 	<link rel="stylesheet" href="main.css">
-	<link rel="stylesheet" type="/app/styles/jquery.fancybox.min.css" href="">
 </head>
 <body>
+		<div id="app">
 
-	<div id="app">
+		
+		<script src="/app/scripts/resources/jquery.fancybox.js" rel="stylesheet"></script>
+
+
 		<h1>Facebook SDK login con Javascript</h1>
 
 		<a href="#" id="login" class="btn btn-primary">Iniciar sesión</a>
@@ -35,7 +40,5 @@
 			  }(document, 'script', 'facebook-jssdk'));
 			 });
 			 </script>
-
-	</div>
 </body>
 </html>
