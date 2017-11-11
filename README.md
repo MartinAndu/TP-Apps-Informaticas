@@ -1,23 +1,22 @@
 
-#API FACEBOOK LOGIN WITH FIREBASE
+# API FACEBOOK LOGIN WITH FIREBASE
 
-##Instructions
+## Instructions
 
-###1) Download the latest version of node
+### 1) Download the latest version of node
 
-###2) Join Firebase project 
+### 2) Join Firebase project 
 
-###3) Install firebase
+### 3) Install firebase
 ```text
-	npm install -g firebase-tools
-
+   npm install -g firebase-tools
    (sudo may be required)
 ```
-###4) Make a login with firebase
+### 4) Make a login with firebase
 ```text    
     firebase login
 ```
-###5) Launch firebase server
+### 5) Launch firebase server
 ```text
    firebase serve
 ```
