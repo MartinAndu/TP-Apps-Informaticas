@@ -1,6 +1,6 @@
 # TP-Apps-Informaticas
 
-# Instructiones
+# Instrucciones
 
 ~~~
 Hay que instalar node 
