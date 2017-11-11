@@ -25,7 +25,15 @@ img {
 	margin-top: 4%;
 }
 
+.arrows {
+	margin-right: 10%;
+	margin-left: 10%;
+	cursor: pointer;
+
+}
+
 body {
     background-image: url("https://firebase.google.com/_static/images/firebase/touchicon-180.png");
     background-color: #cccccc;
 }
+
