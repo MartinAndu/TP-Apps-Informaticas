@@ -57,7 +57,7 @@ $(function() {
 	  		$('#facebook-session strong').text("Bienvenido: "+response.name);
 	  		$('#facebook-session img').attr('src','http://graph.facebook.com/'+response.id+'/picture?type=large');
         $('#initApp').on('click', function() {
-            welcomeCtrl.init();
+          init();
         })
 	  	});
   	}
