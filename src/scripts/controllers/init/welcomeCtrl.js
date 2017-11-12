@@ -1,5 +1,9 @@
 
 
+	var imagesList = ['Desert', 'Iceland', 'LightHouse'];
+	var currentListIndex = 0;
+
+
 	function init() {
 		$('#app').empty().load('templates/home.html');
 		$('body').attr('style',`
@@ -15,6 +19,32 @@
 		$(document).on('click', '#infoImage', function(e) {
 			loadImageDetails();
 		})
+
+		$(document).on('click', '.arrow-left', function(e) {
+			if (currentListIndex > 0) {
+				currentListIndex--;
+			}
+			changeImage(imagesList[currentListIndex]);
+		});
+
+		$(document).on('click', '.arrow-right', function(e) {
+			if (currentListIndex < imagesList.length - 1) {
+				currentListIndex++;
+			}
+			changeImage(imagesList[currentListIndex]);
+		});
+
+	}
+
+	function changeImage(image) {
+		$('#welcomeImage').attr('src', '/images/' + image + '.jpg')
+	}
+
+	function loadBodyImage() {
+	$('body').attr('style',`
+			background-image : url("/images/travel.jpg");
+			background-size: 100% 120%;
+		`);	
 	}
 
 	function loadImageDetails() {
@@ -40,25 +70,26 @@
 
 	function openFancyBox(ajaxData) {
 
+		let strLocationName = imagesList[currentListIndex];
 		let content = `
 		<div class="landscape">
 			<div class="row">
 				  <div class="col-xs-6 col-md-6">
-						<img src="/images/desert.jpg" style="width: 107%;margin-right: 45%;">
+						<img src="/images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
 				</div>	
 						<div class="col-xs-6 col-md-6" >
 							<div class="form-style-3">
 								<form>
 									<fieldset>
-										<legend>Personal</legend>
+										<legend>` + ajaxData[strLocationName].title + `</legend>
 										<div class="row ">
-											<span class="required">Nombre</span> ` + ajaxData.Desert.name + `
+											<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
 										</div>
 										<div class="row ">
-											<span class="required">Descripcion</span> ` + ajaxData.Desert.description + `
+											<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
 										</div>
 										<div class="row ">
-											<span class="required">Disponibilidad</span>` + ajaxData.Desert.availability + `
+											<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
 										</div>
 									</fieldset>
 								</form>
