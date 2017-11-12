@@ -41,8 +41,8 @@
 			closeBtn : true,
 			arrows : true,
 
-			height : 200,
-			width : 200,
+			height : 250,
+			width : 250,
 			autoCenter : true,
 			helpers : {
 				title : {
