@@ -1,9 +1,9 @@
 
 
 	function init() {
-		$('#app').empty().load('app/templates/home.html');
+		$('#app').empty().load('templates/home.html');
 		$('body').attr('style',`
-			background-image : url("/app/images/travel.jpg");
+			background-image : url("/images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
 
@@ -22,7 +22,7 @@
 		<div class="landscape">
 			<div class="row">
 				  <div class="col-xs-6 col-md-6">
-						<img src="/app/images/desert.jpg" style="width: 107%;margin-right: 45%;">
+						<img src="/images/desert.jpg" style="width: 107%;margin-right: 45%;">
 				</div>	
 						<div class="col-xs-6 col-md-6" >
 							(Aca iria la descripción del lugar)
