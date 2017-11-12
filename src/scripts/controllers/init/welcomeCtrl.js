@@ -13,11 +13,33 @@
 
 	function addHandlers() {
 		$(document).on('click', '#infoImage', function(e) {
-			openFancyBox();
+			loadImageDetails();
 		})
 	}
 
-	function openFancyBox() {
+	function loadImageDetails() {
+		var formURL = "http://localhost:5004/json/placesToVisitDetails.json";
+			$.ajax({
+			     url: formURL,
+			     type: 'GET',
+			     data:  null,
+			     mimeType:"multipart/form-data",
+			     contentType: false,
+			     cache: false,
+			     processData:false,
+			     success: function(obj)
+			     {
+			     	openFancyBox(JSON.parse(obj));
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono")
+			     }
+			});
+	}
+
+	function openFancyBox(ajaxData) {
+
 		let content = `
 		<div class="landscape">
 			<div class="row">
@@ -25,9 +47,25 @@
 						<img src="/images/desert.jpg" style="width: 107%;margin-right: 45%;">
 				</div>	
 						<div class="col-xs-6 col-md-6" >
-							(Aca iria la descripción del lugar)
+							<div class="form-style-3">
+								<form>
+									<fieldset>
+										<legend>Personal</legend>
+										<div class="row ">
+											<span class="required">Nombre</span> ` + ajaxData.Desert.name + `
+										</div>
+										<div class="row ">
+											<span class="required">Descripcion</span> ` + ajaxData.Desert.description + `
+										</div>
+										<div class="row ">
+											<span class="required">Disponibilidad</span>` + ajaxData.Desert.availability + `
+										</div>
+									</fieldset>
+								</form>
+							</div>
 						</div>
 						
+
 			        </div>
 			<button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
 		</div>
@@ -56,4 +94,7 @@
 			}
 		}).trigger('click').trigger('click');
 
-}
+	}
+
+
+	

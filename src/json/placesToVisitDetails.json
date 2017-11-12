@@ -1,0 +1,20 @@
+{
+	"Desert" : {
+		"name" : "Desierto",
+		"description" : "En este lugar hay excelentes guías de turismo para realizar recorridos en camionetas 4x4",
+		"availability" : "5",
+		"type" : "clima_seco"
+	},
+	"Iceland" : {
+		"name" : "Lagos y Montañas",
+		"description" : "Lugar con excelentes hospedajes y apto para personas amantes de los climas frios",
+		"availability" : "10",
+		"type" : "clima_frio"
+	},
+	"LightHous" : {
+		"name" : "Costa",
+		"description" : "Vista excelente al mar ,ideal para pasear por bote o barco",
+		"availability" : "10",
+		"type" : "clima_humedo"
+	}
+}
