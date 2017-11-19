@@ -1,0 +1,36 @@
+[debug] [2017-11-11T10:01:20.525Z] ----------------------------------------------------------------------
+[debug] [2017-11-11T10:01:20.530Z] Command:       /usr/bin/nodejs /usr/bin/firebase serve
+[debug] [2017-11-11T10:01:20.532Z] CLI Version:   3.15.0
+[debug] [2017-11-11T10:01:20.532Z] Platform:      linux
+[debug] [2017-11-11T10:01:20.532Z] Node Version:  v7.10.1
+[debug] [2017-11-11T10:01:20.532Z] Time:          Sat Nov 11 2017 07:01:20 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:20.532Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-11T10:01:20.557Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-11T10:01:20.557Z] > authorizing via signed-in user
+[debug] [2017-11-11T10:01:20.561Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-11-11T10:01:20.562Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/DNWR7NNc2qFlWqV5oAffznFhk-FiQNoe7lkNfbihaiZSZIvhBJIwDCJ5_Aq4F5hW',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sat Nov 11 2017 07:01:20 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:20.959Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-11T10:01:20.993Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/viajes-b8c6b  
+ Sat Nov 11 2017 07:01:20 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:22.090Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-11T10:01:22.093Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/viajes-b8c6b/tokens  
+ Sat Nov 11 2017 07:01:22 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:23.102Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/martin/Desktop/martin/TP-Apps-Informaticas'...
+[info] 
+[debug] [2017-11-11T10:01:23.111Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/viajes-b8c6b  
+ Sat Nov 11 2017 07:01:23 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:24.258Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-11T10:01:24.259Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/643633949992/clients/_:getWebAppConfig  
+ Sat Nov 11 2017 07:01:24 GMT-0300 (ART)
+[debug] [2017-11-11T10:01:25.530Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: src
+[info] ✔  hosting: Local server: http://localhost:5000
+
