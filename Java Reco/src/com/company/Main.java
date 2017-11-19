@@ -49,23 +49,23 @@ import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        List<RecommendedItem> recommendedItemList = Recomendator.getInstance().recomend();
+        List<RecommendedItem> recommendedItemList = Recomendator.getInstance().recomend(args[0]);
         // print filter result
         Integer counter=0;
         for (RecommendedItem recommendedItem : recommendedItemList) {
             System.out.println(
                     "Usuario:" + recommendedItem.getUserId() + " " +
                             "Destino:" + recommendedItem.getItemId() + " " +
-                            "Valor:" + recommendedItem.getValue());
-                    if(counter!=5){
-                                counter++;
+                            "Valor:" + recommendedItem.getValue()
+                            );
 
-            }else{
+                    if(counter!=500){
+                                counter++;
+                    }else{
                 break;
             }
 

@@ -14,8 +14,15 @@ import net.librec.similarity.PCCSimilarity;
 import net.librec.similarity.RecommenderSimilarity;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -31,7 +38,7 @@ public class Recomendator {
     private Recomendator() {
     }
 
-    public List<RecommendedItem> recomend() throws IOException, LibrecException {
+    public List<RecommendedItem> recomend(String Usuario) throws IOException, LibrecException {
         Configuration conf = new Configuration();
         TextDataModel dataModel=modelarDatos(conf);
         // Recomendador
@@ -44,23 +51,35 @@ public class Recomendator {
         // Correr algoritmo
         recommender.recommend(context);
         // Ver que tan bueno es el resultado
-        RecommenderEvaluator evaluator = new RMSEEvaluator();
-        System.out.println("RMSE:" + recommender.evaluate(evaluator));
-        // set id list of filter
+        evaluateResult(recommender);
+        // Hacer la lista para filtrar
         List<String> userIdList = new ArrayList<>();
         List<String> itemIdList = new ArrayList<>();
-        userIdList.add("1");
-        itemIdList.add("70");
+        //userIdList.add("1");
+        //itemIdList.add("70");
         // Filtrar por los mejores
         List<RecommendedItem> recommendedItemList = recommender.getRecommendedList();
         GenericRecommendedFilter filter = new GenericRecommendedFilter();
         filter.setUserIdList(userIdList);
         filter.setItemIdList(itemIdList);
-        recommendedItemList.sort(Comparator.comparing(RecommendedItem::getValue));
         //recommendedItemList = filter.filter(recommendedItemList);
+        recommendedItemList.sort(Comparator.comparing(RecommendedItem::getValue));
+        //Collections.reverse(recommendedItemList);
 
+        FiltroRecos filtrar=new FiltroRecos(Usuario,recommendedItemList);
+        List<RecommendedItem> filtrado=filtrar.filtrar();
+        generateOutput(filtrado);
+        return filtrado;
+    }
 
-        return recommendedItemList;
+    private void generateOutput(List<RecommendedItem> recommendedItemList) throws IOException {
+        NewWriter writer=new NewWriter(recommendedItemList);
+        writer.writeFile();
+    }
+
+    private void evaluateResult(Recommender recommender) throws LibrecException {
+        RecommenderEvaluator evaluator = new RMSEEvaluator();
+        System.out.println("RMSE:" + recommender.evaluate(evaluator));
     }
 
     private Recommender createRecomendator(Configuration conf, RecommenderContext context) {
@@ -79,7 +98,7 @@ public class Recomendator {
 
     private TextDataModel modelarDatos(Configuration conf) throws LibrecException, IOException {
 
-        String confFilePath = "./conf/librec.properties";
+        String confFilePath = "conf\\librec.properties";
         Properties prop = new Properties();
         prop.load(new FileInputStream(confFilePath));
 
