@@ -79,7 +79,7 @@ public class Recomendator {
 
     private TextDataModel modelarDatos(Configuration conf) throws LibrecException, IOException {
 
-        String confFilePath = "conf\\librec.properties";
+        String confFilePath = "./conf/librec.properties";
         Properties prop = new Properties();
         prop.load(new FileInputStream(confFilePath));
 
