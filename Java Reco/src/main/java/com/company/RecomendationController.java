@@ -2,9 +2,11 @@ package com.company;
 
 import net.librec.recommender.item.RecommendedItem;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -12,11 +14,11 @@ public class RecomendationController {
 
 
 
-    @RequestMapping("/recomendar")
-    public Recomendator obtenerRecomendacion(@RequestParam(value="Martin", defaultValue="51") String name ) {
-
+    @RequestMapping(value="/recomendar",method= RequestMethod.POST)
+    public List<RecommendedItem> obtenerRecomendacion(@RequestParam(value="Martin", defaultValue="51") String userName ) {
+        List<RecommendedItem> recommendedItemList = new ArrayList<>();
         try {
-            List<RecommendedItem> recommendedItemList = Recomendator.getInstance().recomend("51");
+            recommendedItemList = Recomendator.getInstance().recomend(userName);
             // print filter result
             Integer counter=0;
             for (RecommendedItem recommendedItem : recommendedItemList) {
@@ -35,6 +37,6 @@ public class RecomendationController {
         }catch(Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return recommendedItemList;
     }
 }
