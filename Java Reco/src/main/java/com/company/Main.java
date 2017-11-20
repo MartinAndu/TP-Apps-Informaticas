@@ -56,42 +56,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-
-        List<RecommendedItem> recommendedItemList = Recomendator.getInstance().recomend(args[0]);
-        // print filter result
-        Integer counter=0;
-        for (RecommendedItem recommendedItem : recommendedItemList) {
-            System.out.println(
-                    "Usuario:" + recommendedItem.getUserId() + " " +
-                            "Destino:" + recommendedItem.getItemId() + " " +
-                            "Valor:" + recommendedItem.getValue()
-                            );
-
-                    if(counter!=500){
-                                counter++;
-                    }else{
-                break;
-            }
-
-
-            ;
-        }
-
-       /* Configuration conf = new Configuration();
-        String confFilePath = "C:\\Users\\Colo\\IdeaProjects\\Tp Aplicaciones\\conf\\librec.properties";
-        Properties prop = new Properties();
-        prop.load(new FileInputStream(confFilePath));
-
-        for(String name : prop.stringPropertyNames()) {
-            conf.set(name, prop.getProperty(name));
-        }
-
-        Randoms.seed(20161205);
-
-        RecommenderJob job = new RecommenderJob(conf);
-        job.runJob();
-        System.out.println("Finished");*/
-
+        SpringApplication.run(Main.class, args);
 
     }
 
