@@ -48,7 +48,7 @@
 	}
 
 	function loadImageDetails() {
-		var formURL = "http://localhost:5004/json/placesToVisitDetails.json";
+		var formURL = "./json/placesToVisitDetails.json";
 			$.ajax({
 			     url: formURL,
 			     type: 'GET',
