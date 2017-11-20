@@ -13,11 +13,7 @@ import net.librec.recommender.item.RecommendedItem;
 import net.librec.similarity.PCCSimilarity;
 import net.librec.similarity.RecommenderSimilarity;
 
-import java.io.FileInputStream;
-
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -98,9 +94,10 @@ public class Recomendator {
 
     private TextDataModel modelarDatos(Configuration conf) throws LibrecException, IOException {
 
-        String confFilePath = "conf\\librec.properties";
+        
+        FileInputStream confFilePath = new FileInputStream("." + File.separator + "conf" + File.separator + "librec.properties");
         Properties prop = new Properties();
-        prop.load(new FileInputStream(confFilePath));
+        prop.load(confFilePath);
 
         for(String name : prop.stringPropertyNames()) {
             conf.set(name, prop.getProperty(name));
