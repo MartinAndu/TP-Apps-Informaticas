@@ -1,6 +1,6 @@
 
 
-	var imagesList = ['Desert', 'Iceland', 'LightHouse'];
+	var imagesList = ['Desert', 'Iceland', 'LightHouse','Tropical','MachuPicchu', 'Mountains', 'Castle'];
 	var currentListIndex = 0;
 
 
