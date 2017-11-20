@@ -19,5 +19,33 @@
 		"description" : "Vista excelente al mar ,ideal para pasear por bote o barco",
 		"availability" : "10",
 		"type" : "clima_humedo"
+	},
+	"Tropical" : {
+		"title" : "Paraíso Tropical",
+		"name" : "Isla",
+		"description" : "Isla tropical para descansar",
+		"availability" : "10",
+		"type" : "clima_caluroso"
+	},
+	"MachuPicchu" : {
+		"title" : "Ruinas del MachuPicchu",
+		"name" : "MachuPicchu",
+		"description" : "Turismo de lugares de antiguas civilizaciones",
+		"availability" : "10",
+		"type" : "clima_seco"
+	},
+	"Mountains" : {
+		"title" : "Montañas",
+		"name" : "Montañas de Chile",
+		"description" : "Aventuras en las montañas",
+		"availability" : "10",
+		"type" : "clima_frio"
+	},
+	"Castle" : {
+		"title" : "Castillos",
+		"name" : "Castillo de Neuschwanstein",
+		"description" : "Visitas a antiguo castillo",
+		"availability" : "10",
+		"type" : "clima_frio"
 	}
 }

@@ -1,2 +1,2 @@
-Destino:paraguay
-Destino:argentina
+Destino:Desert
+Destino:LightHouse
