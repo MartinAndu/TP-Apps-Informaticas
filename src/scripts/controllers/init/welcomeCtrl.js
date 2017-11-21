@@ -40,15 +40,18 @@
 		});
 
 		$(document).on('click', '#recommendationButton', function(e) {
-			var formURL = "localhost:8080/recomendar";
+			var obj = { "userName" : "51"};
+			var myJSON = JSON.stringify(obj);
+
+			var formURL = "https://localhost:8080/recomendar";
 				$.ajax({
+				     method: "POST",
 				     url: formURL,
-				     type: 'POST',
-				     data: { userName : "51"},
-				     mimeType:"multipart/form-data",
-				     contentType: false,
-				     cache: false,
-				     processData:false,
+				     data: myJSON,
+					 mimeType:"multipart/form-data",
+					 contentType: false,
+					 cache: false,
+					 processData:false,
 				     success: function(obj)
 				     {
 				     	alert(obj);
