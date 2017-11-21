@@ -7,7 +7,7 @@
 	function init() {
 		$('#app').empty().load('templates/home.html');
 		$('body').attr('style',`
-			background-image : url("/images/travel.jpg");
+			background-image : url("images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
 
@@ -65,12 +65,12 @@
 	}
 
 	function changeImage(image) {
-		$('#welcomeImage').attr('src', '/images/' + image + '.jpg')
+		$('#welcomeImage').attr('src', 'images/' + image + '.jpg')
 	}
 
 	function loadBodyImage() {
 	$('body').attr('style',`
-			background-image : url("/images/travel.jpg");
+			background-image : url("images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
 	}
@@ -138,7 +138,7 @@
 			     	<div class="landscape">
 			     		<div class="row">
 			     			  <div class="col-xs-6 col-md-6">
-			     					<img src="/images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
+			     					<img src="images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
 			     			</div>	
 			     					<div class="col-xs-6 col-md-6" >
 			     						<div class="form-style-3">
