@@ -34,6 +34,10 @@
 			changeImage(imagesList[currentListIndex]);
 		});
 
+		$(document).on('click', '#recommendations', function(e) {
+			recomendar();
+		});
+
 	}
 
 	function changeImage(image) {
@@ -45,6 +49,39 @@
 			background-image : url("/images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
+	}
+
+	function recomendar() {
+		let content = `
+			<div class="landscape">
+				<div class="row">
+					<div class="col-xs-12 col-md-12" >
+						<div class="form-style-3">
+							<form>
+								<fieldset>
+									<legend>Encuesta</legend>
+									<div class="row ">
+										<span class="required">Tipo de Clima</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" type="radio"> Frio
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Rango de Precios a Pagar</span>
+									</div>
+									<div class="row ">
+										<span class="required">Descripcion adicional</span>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+			     	<button id="recommendationButton" class="btn btn-primary bottom-space" style="">Terminar</button></div>
+			</div>
+		`;
+
+		$('[class*="fancybox"').attr('style','width : 300px; height : 300px')
+		openFancyBox(content, 2000, 2000);
 	}
 
 	function loadImageDetails() {
@@ -59,7 +96,40 @@
 			     processData:false,
 			     success: function(obj)
 			     {
-			     	openFancyBox(JSON.parse(obj));
+			     	let ajaxData = JSON.parse(obj);
+			     	let strLocationName = imagesList[currentListIndex];
+			     	let content = `
+			     	<div class="landscape">
+			     		<div class="row">
+			     			  <div class="col-xs-6 col-md-6">
+			     					<img src="/images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
+			     			</div>	
+			     					<div class="col-xs-6 col-md-6" >
+			     						<div class="form-style-3">
+			     							<form>
+			     								<fieldset>
+			     									<legend>` + ajaxData[strLocationName].title + `</legend>
+			     									<div class="row ">
+			     										<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
+			     									</div>
+			     									<div class="row ">
+			     										<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
+			     									</div>
+			     									<div class="row ">
+			     										<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
+			     									</div>
+			     								</fieldset>
+			     							</form>
+			     						</div>
+			     					</div>
+			     					
+
+			     		        </div>
+			     		        <button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
+			     	</div>
+			     	`;
+
+			     	openFancyBox(content,250, 250);
 			     },
 			     error: function(obj)
 			     {
@@ -68,59 +138,21 @@
 			});
 	}
 
-	function openFancyBox(ajaxData) {
+	function openFancyBox(content, width, height) {
 
-		let strLocationName = imagesList[currentListIndex];
-		let content = `
-		<div class="landscape">
-			<div class="row">
-				  <div class="col-xs-6 col-md-6">
-						<img src="/images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
-				</div>	
-						<div class="col-xs-6 col-md-6" >
-							<div class="form-style-3">
-								<form>
-									<fieldset>
-										<legend>` + ajaxData[strLocationName].title + `</legend>
-										<div class="row ">
-											<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
-										</div>
-										<div class="row ">
-											<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
-										</div>
-										<div class="row ">
-											<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
-										</div>
-									</fieldset>
-								</form>
-							</div>
-						</div>
-						
 
-			        </div>
-			<button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
-		</div>
-		`;
 
 		// Set custom style, close if clicked, change title type and overlay color
 		$("#trip-open").fancybox({
 		 	content :  content,
-			wrapCSS    : 'fancybox-custom',
 			closeClick : true,
 			closeBtn : true,
 			arrows : true,
-
-			height : 250,
-			width : 250,
-			autoCenter : true,
+			height : height,
+			width : width,
 			helpers : {
 				title : {
 					type : 'inside'
-				},
-				overlay : {
-					css : {
-						'background' : 'rgba(238,238,238,0.85)'
-					}
 				}
 			}
 		}).trigger('click').trigger('click');
