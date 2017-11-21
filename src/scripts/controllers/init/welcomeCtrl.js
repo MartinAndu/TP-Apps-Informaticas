@@ -43,19 +43,16 @@
 			var obj = { "userName" : "51"};
 			var myJSON = JSON.stringify(obj);
 
-			var formURL = "https://localhost:8080/recomendar";
+			var formURL = "http://localhost:8080/recomendar";
 				$.ajax({
 				     method: "POST",
 				     url: formURL,
 				     data: myJSON,
-					 mimeType:"multipart/form-data",
-					 contentType: false,
-					 cache: false,
-					 processData:false,
+            		 contentType: 'application/json',
+					 crossDomain : true,
 				     success: function(obj)
 				     {
-				     	alert(obj);
-				     	$.fancybox.close();
+				     	console.log(obj[0]);
 				     },
 				     error: function(obj)
 				     {
