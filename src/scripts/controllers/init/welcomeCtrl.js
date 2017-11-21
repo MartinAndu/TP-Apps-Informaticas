@@ -36,7 +36,31 @@
 
 		$(document).on('click', '#recommendations', function(e) {
 			recomendar();
+
 		});
+
+		$(document).on('click', '#recommendationButton', function(e) {
+			var formURL = "localhost:8080/recomendar";
+				$.ajax({
+				     url: formURL,
+				     type: 'POST',
+				     data: { userName : "51"},
+				     mimeType:"multipart/form-data",
+				     contentType: false,
+				     cache: false,
+				     processData:false,
+				     success: function(obj)
+				     {
+				     	alert(obj);
+				     	$.fancybox.close();
+				     },
+				     error: function(obj)
+				     {
+				       console.log("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
+		})
 
 	}
 
@@ -63,14 +87,26 @@
 									<div class="row ">
 										<span class="required">Tipo de Clima</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" type="radio"> Frio
+											<input class="required" name="weather" value="10" type="radio"> Frio
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" name="weather" value="5" type="radio"> Humedo
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" name="weather" value="1" type="radio"> Caluroso
 										</div>
 									</div>
 									<div class="row ">
 										<span class="required">Rango de Precios a Pagar</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
 									</div>
 									<div class="row ">
 										<span class="required">Descripcion adicional</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
 									</div>
 								</fieldset>
 							</form>
@@ -81,7 +117,7 @@
 		`;
 
 		$('[class*="fancybox"').attr('style','width : 300px; height : 300px')
-		openFancyBox(content, 2000, 2000);
+		openFancyBox(content, 2000, 2000, false);
 	}
 
 	function loadImageDetails() {
@@ -129,7 +165,7 @@
 			     	</div>
 			     	`;
 
-			     	openFancyBox(content,250, 250);
+			     	openFancyBox(content,250, 250, true);
 			     },
 			     error: function(obj)
 			     {
@@ -138,15 +174,19 @@
 			});
 	}
 
-	function openFancyBox(content, width, height) {
+	function ajaxCall() {
+
+	}
+
+	function openFancyBox(content, width, height, closeOnClick) {
 
 
 
 		// Set custom style, close if clicked, change title type and overlay color
 		$("#trip-open").fancybox({
 		 	content :  content,
-			closeClick : true,
-			closeBtn : true,
+			closeClick : closeOnClick,
+			closeBtn : closeOnClick,
 			arrows : true,
 			height : height,
 			width : width,
