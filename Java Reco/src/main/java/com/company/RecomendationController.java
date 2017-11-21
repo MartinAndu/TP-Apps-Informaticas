@@ -1,10 +1,7 @@
 package com.company;
 
 import net.librec.recommender.item.RecommendedItem;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
 public class RecomendationController {
 
 
-
+    @CrossOrigin("*")
     @RequestMapping(value="/recomendar",method= RequestMethod.POST)
     public List<RecommendedItem> obtenerRecomendacion(@RequestParam(value="Martin", defaultValue="51") String userName ) {
         List<RecommendedItem> recommendedItemList = new ArrayList<>();
