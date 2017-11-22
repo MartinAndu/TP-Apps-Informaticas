@@ -3,6 +3,7 @@ package com.company;
 import net.librec.recommender.item.RecommendedItem;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,23 +18,33 @@ public class RecomendationController {
         try {
             recommendedItemList = Recomendator.getInstance().recomend(userName);
             // print filter result
-            Integer counter=0;
+            Integer counter = 0;
             for (RecommendedItem recommendedItem : recommendedItemList) {
                 System.out.println(
                         "Usuario:" + recommendedItem.getUserId() + " " +
                                 "Destino:" + recommendedItem.getItemId() + " " +
                                 "Valor:" + recommendedItem.getValue()
                 );
-
-                if (counter != 500) {
-                    counter++;
-                } else {
-                    break;
-                }
+                               ;
             }
         }catch(Exception e) {
             e.printStackTrace();
         }
         return recommendedItemList;
+    }
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/likear",method= RequestMethod.POST)
+    public String obtenerRecomendacion(@RequestBody LikeParams request) {
+        CSVWriter writer=new CSVWriter();
+        String saltoDeLinea=System.getProperty("line.separator");
+        String lineaCSV= request.getUserName() +","+ request.getPlace() + "," + request.getRating() +","+ request.getPrice() + "," + request.getEnvironment() + saltoDeLinea;
+        try {
+            writer.write(lineaCSV,"data/arff/rating/RecosDeOtros.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "OK";
     }
 }

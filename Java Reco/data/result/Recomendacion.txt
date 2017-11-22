@@ -1,2 +1,2 @@
+Destino:Mountains
 Destino:Desert
-Destino:Iceland

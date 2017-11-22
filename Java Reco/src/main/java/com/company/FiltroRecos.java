@@ -45,11 +45,11 @@ public class FiltroRecos {
                         nuevosReco.remove(counterj);
                         return eliminarRepetidos(nuevosReco);
                     }
-                    }
                 }
             }
-        return nuevosReco;
         }
-
+        return nuevosReco;
     }
+
+}
 

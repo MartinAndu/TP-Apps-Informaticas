@@ -33,8 +33,26 @@ public class Recomendator {
 
     private Recomendator() {
     }
-
     public List<RecommendedItem> recomend(String Usuario) throws IOException, LibrecException {
+        List<RecommendedItem> recommendedItemList=reco(Usuario);
+        int cont=0;
+        while(cont<10) {
+            cont++;
+            recommendedItemList = reco(Usuario);
+            if(!recommendedItemList.isEmpty()) {
+                return recommendedItemList;
+            }
+        }
+        if(recommendedItemList.isEmpty()){
+            generateOutput("Error, El usuario no tiene perfil de recomendaciones");
+            System.out.printf("El usuario no tiene perfil de recomendaciones");
+        }else{
+            return recommendedItemList;
+        }
+        return recommendedItemList;
+    }
+
+    public List<RecommendedItem> reco(String Usuario) throws IOException, LibrecException {
         Configuration conf = new Configuration();
         TextDataModel dataModel=modelarDatos(conf);
         // Recomendador
@@ -64,8 +82,40 @@ public class Recomendator {
 
         FiltroRecos filtrar=new FiltroRecos(Usuario,recommendedItemList);
         List<RecommendedItem> filtrado=filtrar.filtrar();
-        generateOutput(filtrado);
-        return filtrado;
+        if (!userIsInList(recommendedItemList,Usuario)){
+            return new LinkedList<RecommendedItem>();
+        }
+        if (filtrado.isEmpty()) {
+            if(recommendedItemList.size()<5){
+                generateOutput(recommendedItemList);
+                return recommendedItemList;
+            }else{
+                generateOutput(recommendedItemList.subList(recommendedItemList.size() - 4, recommendedItemList.size() - 1));
+                return recommendedItemList.subList(recommendedItemList.size() - 4, recommendedItemList.size() - 1);
+            }
+        }
+        if(filtrado.size()<5){
+            generateOutput(filtrado);
+            return filtrado;
+        }else{
+            generateOutput(filtrado.subList(filtrado.size()-4,filtrado.size()-1));
+            return filtrado.subList(filtrado.size() - 4, filtrado.size() - 1);
+        }
+    }
+
+    private void generateOutput(String string) throws IOException {
+        NewWriter writer=new NewWriter(string);
+        writer.writeTextFile();
+    }
+
+
+    private boolean userIsInList(List<RecommendedItem> recommendedItemList, String usuario) {
+        for (RecommendedItem recommendedItem : recommendedItemList) {
+            if (Objects.equals(recommendedItem.getUserId(),usuario)){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void generateOutput(List<RecommendedItem> recommendedItemList) throws IOException {
@@ -75,7 +125,7 @@ public class Recomendator {
 
     private void evaluateResult(Recommender recommender) throws LibrecException {
         RecommenderEvaluator evaluator = new RMSEEvaluator();
-        System.out.println("RMSE:" + recommender.evaluate(evaluator));
+        //System.out.println("RMSE:" + recommender.evaluate(evaluator));
     }
 
     private Recommender createRecomendator(Configuration conf, RecommenderContext context) {
@@ -94,7 +144,7 @@ public class Recomendator {
 
     private TextDataModel modelarDatos(Configuration conf) throws LibrecException, IOException {
 
-        
+
         FileInputStream confFilePath = new FileInputStream("." + File.separator + "conf" + File.separator + "librec.properties");
         Properties prop = new Properties();
         prop.load(confFilePath);
