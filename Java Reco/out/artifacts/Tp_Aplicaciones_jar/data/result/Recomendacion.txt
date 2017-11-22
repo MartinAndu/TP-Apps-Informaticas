@@ -1,4 +1,1 @@
-Destino:chile
-Destino:Suzia
-Destino:Mexico
-Destino:peru
+Error, El usuario no tiene perfil de recomendaciones
