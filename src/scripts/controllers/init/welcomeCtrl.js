@@ -2,6 +2,7 @@
 
 	var imagesList = ['Desert', 'Iceland', 'LightHouse','Tropical','MachuPicchu', 'Mountains', 'Castle'];
 	var currentListIndex = 0;
+	var contadorLikes = 0;
 
 
 	function init() {
@@ -61,6 +62,65 @@
 				     }
 				});
 		})
+
+		$(document).on('click','#like', function(e) {
+
+			if ( contadorLikes != 5) {
+
+				var formURL = "http://localhost:8080/likear";
+				    let myJSON = 	{
+						"userName" : "51",
+						"place" : "Desert",
+						"price" :  "2",
+						"rating" : "10",
+						"environment" : "10"
+					}
+
+
+					$.ajax({
+					     method: "POST",
+					     url: formURL,
+					     data: JSON.stringify(myJSON),
+	            		 contentType: 'application/json',
+						 crossDomain : true,
+					     success: function(obj)
+					     {
+					     	if (obj)
+					     	console.log(obj[0]);
+					     },
+					     error: function(obj)
+					     {
+					       console.log("No funciono");
+					     	$.fancybox.close();
+					     }
+					});
+
+					contadorLikes ++;
+			} else {
+					var formURL = "http://localhost:8080/recomendar";
+
+					var obj = { "userName" : "51"};
+					var myJSON = JSON.stringify(obj);
+
+						$.ajax({
+						     method: "POST",
+						     url: formURL,
+						     data: myJSON,
+		            		 contentType: 'application/json',
+							 crossDomain : true,
+						     success: function(obj)
+						     {
+						     	console.log(obj[0]);
+						     },
+						     error: function(obj)
+						     {
+						       console.log("No funciono");
+						     	$.fancybox.close();
+						     }
+						});
+			}
+
+		});
 
 	}
 
