@@ -11,7 +11,7 @@
 			background-image : url("images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
-		
+
 		addHandlers();
 	}
 
@@ -72,19 +72,16 @@
 
 			if ( contadorLikes != 5) {
 
-				if (currentListIndex < imagesList.length - 1) {
-					currentListIndex++;
-				} else {
-					currentListIndex = 0;
-				}
 
+				contadorLikes ++;
+			
 
 				var formURL = "http://localhost:8080/likear";
 				    let myJSON = 	{
 						"userName" : "51",
-						"place" : "Desert",
-						"price" :  "2",
-						"rating" : "10",
+						"place" : imagesList[currentListIndex],
+						"rating" : "5",
+						"price" :  "10",
 						"environment" : "10"
 					}
 
@@ -106,7 +103,13 @@
 					     }
 					});
 
-					contadorLikes ++;
+					if (currentListIndex < imagesList.length - 1) {
+						currentListIndex++;
+					} else {
+						currentListIndex = 0;
+					}
+
+
 					changeImage(imagesList[currentListIndex]);
 			} else {
 					contadorLikes = 0;
@@ -125,12 +128,14 @@
 						     {
 						     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
 						     	for (let i = 0;i < obj.length; i++) {
-						     		str += obj[i].itemId + '';
+						     		str += obj[i].itemId + ' ';
 						     	}
+
+						     	let arrayString = obj.length == 0? 'Iceland' : '';
+						     	str += arrayString;
 						     	alert(str);
 
-						     	let arrayString = obj.length == 0? 'Iceland' : obj[0].itemId;
-						     	currentListIndex = imagesList.indexOf(arrayString);
+						     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : obj[0].itemId);
 								changeImage(imagesList[currentListIndex]);
 						     },
 						     error: function(obj)
