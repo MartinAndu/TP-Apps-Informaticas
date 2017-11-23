@@ -11,7 +11,7 @@
 			background-image : url("images/travel.jpg");
 			background-size: 100% 120%;
 		`);	
-
+		
 		addHandlers();
 	}
 
@@ -24,6 +24,8 @@
 		$(document).on('click', '.arrow-left', function(e) {
 			if (currentListIndex > 0) {
 				currentListIndex--;
+			} else {
+				currentListIndex = 0;
 			}
 			changeImage(imagesList[currentListIndex]);
 		});
@@ -31,6 +33,8 @@
 		$(document).on('click', '.arrow-right', function(e) {
 			if (currentListIndex < imagesList.length - 1) {
 				currentListIndex++;
+			} else {
+				currentListIndex = 0;
 			}
 			changeImage(imagesList[currentListIndex]);
 		});
@@ -54,6 +58,7 @@
 				     success: function(obj)
 				     {
 				     	console.log(obj[0]);
+				     	$.fancybox.close();
 				     },
 				     error: function(obj)
 				     {
@@ -66,6 +71,13 @@
 		$(document).on('click','#like', function(e) {
 
 			if ( contadorLikes != 5) {
+
+				if (currentListIndex < imagesList.length - 1) {
+					currentListIndex++;
+				} else {
+					currentListIndex = 0;
+				}
+
 
 				var formURL = "http://localhost:8080/likear";
 				    let myJSON = 	{
@@ -85,7 +97,6 @@
 						 crossDomain : true,
 					     success: function(obj)
 					     {
-					     	if (obj)
 					     	console.log(obj[0]);
 					     },
 					     error: function(obj)
@@ -96,7 +107,9 @@
 					});
 
 					contadorLikes ++;
+					changeImage(imagesList[currentListIndex]);
 			} else {
+					contadorLikes = 0;
 					var formURL = "http://localhost:8080/recomendar";
 
 					var obj = { "userName" : "51"};
@@ -104,13 +117,21 @@
 
 						$.ajax({
 						     method: "POST",
-						     url: formURL,
+						     url: formURL, 	
 						     data: myJSON,
 		            		 contentType: 'application/json',
 							 crossDomain : true,
 						     success: function(obj)
 						     {
-						     	console.log(obj[0]);
+						     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
+						     	for (let i = 0;i < obj.length; i++) {
+						     		str += obj[i].itemId + '';
+						     	}
+						     	alert(str);
+
+						     	let arrayString = obj.length == 0? 'Iceland' : obj[0].itemId;
+						     	currentListIndex = imagesList.indexOf(arrayString);
+								changeImage(imagesList[currentListIndex]);
 						     },
 						     error: function(obj)
 						     {
@@ -119,6 +140,8 @@
 						     }
 						});
 			}
+
+
 
 		});
 
