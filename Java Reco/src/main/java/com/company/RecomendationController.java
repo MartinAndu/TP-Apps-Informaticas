@@ -47,4 +47,13 @@ public class RecomendationController {
 
         return "OK";
     }
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/uploadFile",method= RequestMethod.POST)
+    public String uploadFile(@RequestParam (value = "name" ) String name,
+                             @RequestParam (value = "ruta") String ruta) {
+        FileCopy copiador = new FileCopy(ruta,name);
+
+        return "OK";
+    }
 }

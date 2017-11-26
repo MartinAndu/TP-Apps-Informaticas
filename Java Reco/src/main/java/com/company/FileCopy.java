@@ -4,7 +4,10 @@ package com.company;
 import java.io.*;
 
 public class FileCopy {
-    public FileCopy(String sourceFile, String destinationFile) {
+    String destinationFile = "../src/images/";
+
+    public FileCopy(String sourceFile,String name) {
+        destinationFile += name;
         System.out.println("Desde: " + sourceFile);
         System.out.println("Hacia: " + destinationFile);
 
