@@ -21,7 +21,7 @@
 			loadImageDetails();
 		})
 
-		$(document).on('click', '.arrow-left', function(e) {
+		$(document).on('click', '#previous-image', function(e) {
 			if (currentListIndex > 0) {
 				currentListIndex--;
 			} else {
@@ -30,7 +30,7 @@
 			changeImage(imagesList[currentListIndex]);
 		});
 
-		$(document).on('click', '.arrow-right', function(e) {
+		$(document).on('click', '#next-image', function(e) {
 			if (currentListIndex < imagesList.length - 1) {
 				currentListIndex++;
 			} else {
@@ -76,10 +76,14 @@
 			likear(5);
 		});
 
+		$(document).on('click','#uploadImage', function(e) {
+			uploadImage();
+		});
+
 	}
 
-	function likear(rating){
-					if ( contadorLikes != 5) {
+	function likear(rating) { 
+			if ( contadorLikes != 5) {
 
 
 				contadorLikes ++;
@@ -148,43 +152,104 @@
 				
 			} else {
 					contadorLikes = 0;
-					var formURL = "http://localhost:8080/recomendar";
-
-					var obj = { "userName" : "51"};
-					var myJSON = JSON.stringify(obj);
-
-						$.ajax({
-						     method: "POST",
-						     url: formURL, 	
-						     data: myJSON,
-		            		 contentType: 'application/json',
-							 crossDomain : true,
-						     success: function(obj)
-						     {
-						     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
-			     	for (let i = 0;i < obj.length; i++) {
-									//if (	obj[i].itemId == "Iceland") str = "tropical";					     		
-									str += obj[i].itemId + '/';
-					     	}
-									
-						     	let arrayString = obj.length == 0? 'Iceland' : '';
-						     	str += arrayString;
-						     	alert(str);
-
-						     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : obj[0].itemId);
-								changeImage(imagesList[currentListIndex]);
-						     },
-						     error: function(obj)
-						     {
-						       console.log("No funciono");
-						     	$.fancybox.close();
-						     }
-						});
+					ajaxCallRecomendar();
 			}
 
 
 
 	}
+
+
+	function ajaxCallRecomendar() {
+		
+		var formURL = "http://localhost:8080/recomendar";
+
+		var obj = { "userName" : "51"};
+		var myJSON = JSON.stringify(obj);
+
+			$.ajax({
+			     method: "POST",
+			     url: formURL, 	
+			     data: myJSON,
+				 contentType: 'application/json',
+				 crossDomain : true,
+			     success: function(obj)
+			     {
+			     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
+			for (let i = 0;i < obj.length; i++) {
+						//if (	obj[i].itemId == "Iceland") str = "tropical";					     		
+						str += obj[i].itemId + '/';
+		     	}
+						
+			     	let arrayString = obj.length == 0? 'Iceland' : '';
+			     	str += arrayString;
+			     	alert(str);
+
+			     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : obj[0].itemId);
+					changeImage(imagesList[currentListIndex]);
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono");
+			     	$.fancybox.close();
+			     }
+			});
+
+	}
+
+	function uploadImage() {
+		let content = `
+			<div class="landscape">
+				<div class="row">
+					<div class="col-xs-12 col-md-12" >
+						<div class="form-style-3">
+							<form>
+								<fieldset>
+									<legend>Sube imagen</legend>
+									<div class="row ">
+										<span class="required">Subir imagen</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<form enctype="multipart/form-data" action="/upload/image" method="post">
+											    <input id="image-file" type="file" />
+											</form>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Tipo de Clima</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" name="weather" value="10" type="radio"> Frio
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" name="weather" value="5" type="radio"> Humedo
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required" name="weather" value="1" type="radio"> Caluroso
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Rango de Precios a Pagar</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Descripcion adicional</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+			     	<button id="recommendationButton" class="btn btn-primary bottom-space" style="">Terminar</button></div>
+			</div>
+		`;
+
+		
+		openFancyBox(content, 2000, 2000, false);
+	}
+
 	function changeImage(image) {
 		$('#welcomeImage').attr('src', 'images/' + image + '.jpg')
 	}

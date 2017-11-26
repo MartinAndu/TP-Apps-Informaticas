@@ -2,14 +2,27 @@
 	<div>
 		<h1><a>Selecciona la imagen del lugar que te interesa</a></h1>
 	</div>
-	<a>
+	<div >
 		<img id="welcomeImage" src="images/Desert.jpg"/>
-		<img class="glyphicon glyphicon-chevron-left arrows arrow-left" src="images/Arrow-Right.jpg" style="transform: scale(-1, 1);"></img>
-		<button class="btn-info bottom-space arrows" id="notlike">Not Like</button>		
-		<button class="btn-info bottom-space arrows" id="like">Like</button>
-		<img class="glyphicon glyphicon-chevron-left arrows arrow-right" src="images/Arrow-Right.jpg"></img>
-	</a>
-	<button class="btn-info bottom-space arrows" id="infoImage">Ver Detalles</button>
-	<button class="btn-info bottom-space arrows" id="recommendations">Encuesta</button>
+	</div>
+	<div style="display: inline-block;">
+		<div class="imgsDivs">
+			<img class="icons" id="previous-image" src="icons/Arrow-Right.jpg" style="transform: scale(-1, 1);"></img>
+		</div>
+		<div  class="imgsDivs">
+			<img class="icons" src="icons/Dislike.jpg" id="notlike"></img>		
+		</div>
+		<div  class="imgsDivs">
+			<img class="icons" src="icons/Like.jpg" id="like"></img>
+		</div>
+		<div  class="imgsDivs">
+			<img class="icons" id="next-image" src="icons/Arrow-Right.jpg"></img>
+		</div>
+	</div>
+	<div>
+		<button class="btn-info bottom-space" id="infoImage">Ver Detalles</button>
+		<button class="btn-info bottom-space" id="uploadImage">Subir imagen</button>
+		<button class="btn-info bottom-space" id="recommendations">Encuesta</button>
+	<
 </div>
 <a id="trip-open" class="fancybox-effects-c" alt="" title=""> </a>
