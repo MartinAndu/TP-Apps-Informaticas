@@ -3,7 +3,7 @@
 	var imagesList = ['Desert', 'Iceland', 'LightHouse','Tropical','MachuPicchu', 'Mountains', 'Castle'];
 	var currentListIndex = 0;
 	var contadorLikes = 0;
-
+	var URLJSON = "./json/placesToVisitDetails.json"; 
 
 	function init() {
 		$('#app').empty().load('templates/home.html');
@@ -75,42 +75,68 @@
 
 				contadorLikes ++;
 			
-
 				var formURL = "http://localhost:8080/likear";
-				    let myJSON = 	{
-						"userName" : "51",
-						"place" : imagesList[currentListIndex],
-						"rating" : "5",
-						"price" :  "10",
-						"environment" : "10"
-					}
+				var userName;
+				var price;
+				
+				$.ajax({
+			     url: URLJSON,
+			     type: 'GET',
+			     data:  null,
+			     mimeType:"multipart/form-data",
+			     contentType: false,
+			     cache: false,
+			     processData:false,
+			     success: function(obj)
+			     {
+			     	let ajaxData = JSON.parse(obj);
+			     	let strLocationName = imagesList[currentListIndex];
+			     	//price = ajaxData[strLocationName].price;
+			     	clima = ajaxData[strLocationName].environment;
 
+			     	let myJSON = 	{
+						
+					"userName" : "51",
+					"place" : imagesList[currentListIndex],
+					"rating" : "5",
+					"price" :  "10",
+					"environment" : clima
+				}
+ 
+				$.ajax({
+				     method: "POST",
+				     url: formURL,
+				     data: JSON.stringify(myJSON),
+            		 contentType: 'application/json',
+					 crossDomain : true,
+				     success: function(obj)
+				     {
+				     	console.log(obj[0]);
+				     },
+				     error: function(obj)
+				     {
+				       console.log("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
 
-					$.ajax({
-					     method: "POST",
-					     url: formURL,
-					     data: JSON.stringify(myJSON),
-	            		 contentType: 'application/json',
-						 crossDomain : true,
-					     success: function(obj)
-					     {
-					     	console.log(obj[0]);
-					     },
-					     error: function(obj)
-					     {
-					       console.log("No funciono");
-					     	$.fancybox.close();
-					     }
-					});
-
-					if (currentListIndex < imagesList.length - 1) {
-						currentListIndex++;
-					} else {
-						currentListIndex = 0;
-					}
+				if (currentListIndex < imagesList.length - 1) {
+					currentListIndex++;
+				} else {
+					currentListIndex = 0;
+				}
 
 
 					changeImage(imagesList[currentListIndex]);
+			     	
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono, la carga los datos de la imagen, like");
+			     }
+				});
+				    
+				
 			} else {
 					contadorLikes = 0;
 					var formURL = "http://localhost:8080/recomendar";
@@ -127,11 +153,12 @@
 						     success: function(obj)
 						     {
 						     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
-						     	for (let i = 0;i < obj.length; i++) {
-						     		str += obj[i].itemId + ' ';
-						     	}
-
-						     	let arrayString = obj.length == 0? 'Iceland' : '';
+			     	for (let i = 0;i < obj.length; i++) {
+									//if (	obj[i].itemId == "Iceland") str = "tropical";					     		
+									str += obj[i].itemId + '/';
+					     	}
+									
+						     	let arrayString = obj.length == 0? 'Tropical' : '';
 						     	str += arrayString;
 						     	alert(str);
 
