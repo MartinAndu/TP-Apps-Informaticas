@@ -10,6 +10,8 @@
       <root url="jar://$PROJECT_DIR$/lib/junit-4.12.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/librec-core-2.0.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/log4j-1.2.17.jar!/" />
+      <root url="file://$PROJECT_DIR$/src/main/java/com/company/json-simple-1.1.1/org/json/simple" />
+      <root url="file://$PROJECT_DIR$/src/main/java/com/company/json-simple-1.1.1/org/json/simple/parser" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

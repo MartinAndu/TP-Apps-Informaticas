@@ -1,6 +1,7 @@
 package com.company;
 
 import net.librec.recommender.item.RecommendedItem;
+import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -52,7 +53,17 @@ public class RecomendationController {
     @RequestMapping(value="/uploadFile",method= RequestMethod.POST)
     public String uploadFile(@RequestBody FileRequest request) {
         FileCopy copiador = new FileCopy(request.getRuta(), request.getName());
+        JSONObject obj = new JSONObject();
 
+        JSONObject lista = new JSONObject();
+        lista.put("title",request.getTitle());
+        lista.put("name", "Leer un JSON");
+        lista.put("description", "lalala");
+        lista.put("availability",request.getAvailability());
+        lista.put("type",request.getType());
+        lista.put("environment",request.getEnvironment());
+        obj.put("Posts",lista);
+        JSONWriter jsonWriter = new JSONWriter(obj);
         return "OK";
     }
 }
