@@ -50,9 +50,8 @@ public class RecomendationController {
 
     @CrossOrigin("*")
     @RequestMapping(value="/uploadFile",method= RequestMethod.POST)
-    public String uploadFile(@RequestParam (value = "name" ) String name,
-                             @RequestParam (value = "ruta") String ruta) {
-        FileCopy copiador = new FileCopy(ruta,name);
+    public String uploadFile(@RequestBody FileRequest request) {
+        FileCopy copiador = new FileCopy(request.getRuta(), request.getName());
 
         return "OK";
     }
