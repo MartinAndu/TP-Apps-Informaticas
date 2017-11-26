@@ -68,9 +68,18 @@
 				});
 		})
 
-		$(document).on('click','#like', function(e) {
+		$(document).on('click','#notlike', function(e){
+			likear(0);
+		})
 
-			if ( contadorLikes != 5) {
+		$(document).on('click','#like', function(e) {
+			likear(5);
+		});
+
+	}
+
+	function likear(rating){
+					if ( contadorLikes != 5) {
 
 
 				contadorLikes ++;
@@ -98,7 +107,7 @@
 						
 					"userName" : "51",
 					"place" : imagesList[currentListIndex],
-					"rating" : "5",
+					"rating" : rating,
 					"price" :  "10",
 					"environment" : clima
 				}
@@ -128,7 +137,7 @@
 
 
 					changeImage(imagesList[currentListIndex]);
-			     	
+
 			     },
 			     error: function(obj)
 			     {
@@ -158,7 +167,7 @@
 									str += obj[i].itemId + '/';
 					     	}
 									
-						     	let arrayString = obj.length == 0? 'Tropical' : '';
+						     	let arrayString = obj.length == 0? 'Iceland' : '';
 						     	str += arrayString;
 						     	alert(str);
 
@@ -175,10 +184,7 @@
 
 
 
-		});
-
 	}
-
 	function changeImage(image) {
 		$('#welcomeImage').attr('src', 'images/' + image + '.jpg')
 	}
