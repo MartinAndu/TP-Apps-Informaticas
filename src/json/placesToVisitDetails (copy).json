@@ -1,0 +1,58 @@
+{
+	"Desert" : {
+		"title" : "Desierto del Sahara",
+		"name" : "Desierto",
+		"description" : "En este lugar hay excelentes guías de turismo para realizar recorridos en camionetas 4x4",
+		"availability" : "5",
+		"type" : "clima_seco",
+		"environment" : "5"
+	},
+	"Iceland" : {
+		"title" : "Lago",
+		"name" : "Lagos y Montañas",
+		"description" : "Lugar con excelentes hospedajes y apto para personas amantes de los climas frios",
+		"availability" : "10",
+		"type" : "clima_frio",
+		"environment" : "1"
+	},
+	"LightHouse" : {
+		"title" : "Puerto",
+		"name" : "Costa",
+		"description" : "Vista excelente al mar ,ideal para pasear por bote o barco",
+		"availability" : "10",
+		"type" : "clima_humedo",
+		"environment" : "7"
+	},
+	"Tropical" : {
+		"title" : "Paraíso Tropical",
+		"name" : "Isla",
+		"description" : "Isla tropical para descansar",
+		"availability" : "10",
+		"type" : "clima_caluroso",
+		"environment" : "10"
+	},
+	"MachuPicchu" : {
+		"title" : "Ruinas del MachuPicchu",
+		"name" : "MachuPicchu",
+		"description" : "Turismo de lugares de antiguas civilizaciones",
+		"availability" : "10",
+		"type" : "clima_seco",
+		"environment" : "5"
+	},
+	"Mountains" : {
+		"title" : "Montañas",
+		"name" : "Montañas de Chile",
+		"description" : "Aventuras en las montañas",
+		"availability" : "10",
+		"type" : "clima_frio",
+		"environment" : "1"
+	},
+	"Castle" : {
+		"title" : "Castillos",
+		"name" : "Castillo de Neuschwanstein",
+		"description" : "Visitas a antiguo castillo",
+		"availability" : "10",
+		"type" : "clima_frio",
+		"environment" : "1"
+	}
+}
