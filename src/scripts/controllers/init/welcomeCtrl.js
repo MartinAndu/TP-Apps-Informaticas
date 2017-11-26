@@ -207,23 +207,46 @@
 								<fieldset>
 									<legend>Sube imagen</legend>
 									<div class="row ">
+										<span class="required">Titulo</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="title" class="required" type="text">
+										</div>
+									</div>
+									<div class="row ">
 										<span class="required">Subir imagen</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
 											<form enctype="multipart/form-data" action="/upload/image" method="post">
 											    <input id="image-file" type="file" />
+											    <input hidden id="fileName" type="text" />
 											</form>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Ruta de Archivo</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="imagePath" class="required" type="text">
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Disponibilidad</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="availability" class="required" type="text">
 										</div>
 									</div>
 									<div class="row ">
 										<span class="required">Tipo de Clima</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="10" type="radio"> Frio
+											<input class="required environment" name="weather" value="1" type="radio"> Frio
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="5" type="radio"> Humedo
+											<input class="required environment" name="weather" value="7" type="radio"> Humedo
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="1" type="radio"> Caluroso
+											<input class="required environment" name="weather" value="5" type="radio"> Seco
+										</div>
+
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="10" type="radio"> Caluroso
 										</div>
 									</div>
 									<div class="row ">
@@ -235,19 +258,61 @@
 									<div class="row ">
 										<span class="required">Descripcion adicional</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input type="text"></input>
+											<input id="description" type="text"></input>
 										</div>
 									</div>
 								</fieldset>
 							</form>
 						</div>
 					</div>
-			     	<button id="recommendationButton" class="btn btn-primary bottom-space" style="">Terminar</button></div>
+			     	<button id="submitImage" class="btn btn-primary bottom-space" style="">Subir Todo</button></div>
 			</div>
 		`;
 
 		
 		openFancyBox(content, 2000, 2000, false);
+
+		$(document).on('change', '#image-file', function() {
+			$('#fileName').val(this.files[0].name);
+		});
+
+		$(document).on('click','#submitImage', function(e){
+				var formURL = "http://localhost:8080/uploadFile";
+				var environmentType = {
+					"1" : "clima_frio",
+					"5" : "clima_seco",
+					"7" : "clima_humedo",
+					"10" : "clima_caluroso"
+				}
+				var obj = {
+					"title" : $('#fileName').val(),
+					"name" : $('#fileName').val(),
+					"description" : $('#description').val(),
+					"availability" : $('#availability').val(),
+					"type" : environmentType[$('.environment:checked').val()],
+					"environment" : $('.environment:checked').val(),
+					"ruta" : $('#imagePath').val() + '/' + $('#fileName').val()
+				}
+				var myJSON = JSON.stringify(obj);
+				$.ajax({
+				     method: "POST",
+				     url: formURL, 	
+				     data: myJSON,
+					 contentType: 'application/json',
+					 crossDomain : true,
+				     success: function(obj)
+				     {
+				     	console.log('OK');
+				     	$.fancybox.close();
+				     },
+				     error: function(obj)
+				     {
+				        alert("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
+
+		});
 	}
 
 	function changeImage(image) {
@@ -273,13 +338,16 @@
 									<div class="row ">
 										<span class="required">Tipo de Clima</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="10" type="radio"> Frio
+											<input class="required environment" name="weather" value="10" type="radio"> Frio
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="5" type="radio"> Humedo
+											<input class="required environment" name="weather" value="7" type="radio"> Humedo
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required" name="weather" value="1" type="radio"> Caluroso
+											<input class="required environment" name="weather" value="10" type="radio"> Caluroso
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="5" type="radio"> Seco
 										</div>
 									</div>
 									<div class="row ">
@@ -358,10 +426,6 @@
 			       console.log("No funciono")
 			     }
 			});
-	}
-
-	function ajaxCall() {
-
 	}
 
 	function openFancyBox(content, width, height, closeOnClick) {
