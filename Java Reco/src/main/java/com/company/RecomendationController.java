@@ -2,6 +2,8 @@ package com.company;
 
 import net.librec.recommender.item.RecommendedItem;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -52,17 +54,27 @@ public class RecomendationController {
     @CrossOrigin("*")
     @RequestMapping(value="/uploadFile",method= RequestMethod.POST)
     public String uploadFile(@RequestBody FileRequest request) {
+        System.out.println(request.availability);
+        System.out.println(request.ruta);
         FileCopy copiador = new FileCopy(request.getRuta(), request.getName());
-        JSONObject obj = new JSONObject();
-
+        JSONReader reader = new JSONReader();
+        JSONObject obj=null;
+        String jsonString = reader.getDatos();
+        System.out.println("jsonString" + jsonString);
+        JSONParser parser = new JSONParser();
+        try {
+            obj = (JSONObject) parser.parse(jsonString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         JSONObject lista = new JSONObject();
         lista.put("title",request.getTitle());
-        lista.put("name", "Leer un JSON");
-        lista.put("description", "lalala");
+        lista.put("name", request.getName());
+        lista.put("description", request.getDescription());
         lista.put("availability",request.getAvailability());
         lista.put("type",request.getType());
         lista.put("environment",request.getEnvironment());
-        obj.put("Posts",lista);
+        obj.put(request.getName(),lista);
         JSONWriter jsonWriter = new JSONWriter(obj);
         return "OK";
     }
