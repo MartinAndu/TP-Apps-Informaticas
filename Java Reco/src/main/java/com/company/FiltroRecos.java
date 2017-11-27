@@ -26,7 +26,7 @@ public class FiltroRecos {
                 if (counter > 0 && !Objects.equals(recomendadosOriginales.get(counter - 1).getUserId(),usuario.toString())){
                     nuevosReco.add(recomendadosOriginales.get(counter - 1));
                 }
-                if (counter<recomendadosOriginales.size() && !Objects.equals(recomendadosOriginales.get(counter + 1).getUserId(),usuario.toString())){
+                if (counter+1<recomendadosOriginales.size() && !Objects.equals(recomendadosOriginales.get(counter + 1).getUserId(),usuario.toString())){
                     nuevosReco.add(recomendadosOriginales.get(counter + 1));
                 }
             }
