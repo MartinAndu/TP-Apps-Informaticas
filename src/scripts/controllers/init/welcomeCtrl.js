@@ -1,6 +1,6 @@
 
 
-	var imagesList = ['Desert', 'Iceland', 'LightHouse','Tropical','MachuPicchu', 'Mountains', 'Castle'];
+	var imagesList = [];
 	var currentListIndex = 0;
 	var contadorLikes = 0;
 	var URLJSON = "./json/placesToVisitDetails.json"; 
@@ -13,12 +13,13 @@
 		`);	
 
 		addHandlers();
+		loadImageDetails(successPlacesList);
 	}
 
 
 	function addHandlers() {
 		$(document).on('click', '#infoImage', function(e) {
-			loadImageDetails();
+			loadImageDetails(successPlacesDetails);
 		})
 
 		$(document).on('click', '#previous-image', function(e) {
@@ -81,6 +82,76 @@
 		});
 
 	}
+
+
+	function loadImageDetails(successPlaces) {
+		var formURL = "./json/placesToVisitDetails.json";
+			$.ajax({
+			     url: formURL,
+			     type: 'GET',
+			     data:  null,
+			     mimeType:"multipart/form-data",
+			     contentType: false,
+			     cache: false,
+			     processData:false,
+			     success: function(obj)
+			     {
+			     	successPlaces(obj);			     	
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono")
+			     }
+			});
+	}
+
+	function successPlacesList(obj) {
+		let ajaxData = JSON.parse(obj);
+
+		for (var key in ajaxData) {
+			imagesList.push(key)
+		}
+	}
+
+	function successPlacesDetails(obj) {
+		let ajaxData = JSON.parse(obj);
+		let strLocationName = imagesList[currentListIndex];
+		let content = `
+		<div class="landscape">
+			<div class="row">
+				  <div class="col-xs-6 col-md-6">
+						<img src="images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
+				</div>	
+						<div class="col-xs-6 col-md-6" >
+							<div class="form-style-3">
+								<form>
+									<fieldset>
+										<legend>` + ajaxData[strLocationName].title + `</legend>
+										<div class="row ">
+											<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
+										</div>
+										<div class="row ">
+											<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
+										</div>
+										<div class="row ">
+											<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+						
+
+			        </div>
+			        <button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
+		</div>
+		`;
+
+		openFancyBox(content,250, 250, true);
+	}
+
+
+
 
 	function likear(rating) { 
 			if ( contadorLikes != 5) {
@@ -158,7 +229,6 @@
 
 
 	}
-
 
 	function ajaxCallRecomendar() {
 		
@@ -262,10 +332,10 @@
 										</div>
 									</div>
 								</fieldset>
+			     				<button id="submitImage" class="btn btn-primary bottom-space" style="">Subir Todo</button></div>
 							</form>
 						</div>
 					</div>
-			     	<button id="submitImage" class="btn btn-primary bottom-space" style="">Subir Todo</button></div>
 			</div>
 		`;
 
@@ -277,6 +347,8 @@
 		});
 
 		$(document).on('click','#submitImage', function(e){
+
+
 				var formURL = "http://localhost:8080/uploadFile";
 				var environmentType = {
 					"1" : "clima_frio",
@@ -285,14 +357,15 @@
 					"10" : "clima_caluroso"
 				}
 				var obj = {
-					"title" : $('#fileName').val(),
-					"name" : $('#fileName').val(),
+					"title" : $('#title').val(),
+					"name" : ($('#fileName').val()).replace(/\.[^/.]+$/,""),
 					"description" : $('#description').val(),
 					"availability" : $('#availability').val(),
 					"type" : environmentType[$('.environment:checked').val()],
 					"environment" : $('.environment:checked').val(),
 					"ruta" : $('#imagePath').val() + '/' + $('#fileName').val()
 				}
+
 				var myJSON = JSON.stringify(obj);
 				$.ajax({
 				     method: "POST",
@@ -302,7 +375,10 @@
 					 crossDomain : true,
 				     success: function(obj)
 				     {
-				     	console.log('OK');
+				     	alert('Imagen subida correctamente');
+						loadImageDetails(successPlacesList);
+						currentListIndex = 0;
+						changeImage(imagesList[currentListIndex]);
 				     	$.fancybox.close();
 				     },
 				     error: function(obj)
@@ -314,6 +390,23 @@
 
 		});
 	}
+
+	function urlExists(url)
+	{
+		$.ajax({
+		    url: url,
+		    type:'HEAD',
+		    error: function()
+		    {
+		        return false;
+		    },
+		    success: function()
+		    {
+		    	return true;
+		    }
+		});
+	}
+
 
 	function changeImage(image) {
 		$('#welcomeImage').attr('src', 'images/' + image + '.jpg')
@@ -372,60 +465,6 @@
 
 		$('[class*="fancybox"').attr('style','width : 300px; height : 300px')
 		openFancyBox(content, 2000, 2000, false);
-	}
-
-	function loadImageDetails() {
-		var formURL = "./json/placesToVisitDetails.json";
-			$.ajax({
-			     url: formURL,
-			     type: 'GET',
-			     data:  null,
-			     mimeType:"multipart/form-data",
-			     contentType: false,
-			     cache: false,
-			     processData:false,
-			     success: function(obj)
-			     {
-			     	let ajaxData = JSON.parse(obj);
-			     	let strLocationName = imagesList[currentListIndex];
-			     	let content = `
-			     	<div class="landscape">
-			     		<div class="row">
-			     			  <div class="col-xs-6 col-md-6">
-			     					<img src="images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
-			     			</div>	
-			     					<div class="col-xs-6 col-md-6" >
-			     						<div class="form-style-3">
-			     							<form>
-			     								<fieldset>
-			     									<legend>` + ajaxData[strLocationName].title + `</legend>
-			     									<div class="row ">
-			     										<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
-			     									</div>
-			     									<div class="row ">
-			     										<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
-			     									</div>
-			     									<div class="row ">
-			     										<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
-			     									</div>
-			     								</fieldset>
-			     							</form>
-			     						</div>
-			     					</div>
-			     					
-
-			     		        </div>
-			     		        <button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
-			     	</div>
-			     	`;
-
-			     	openFancyBox(content,250, 250, true);
-			     },
-			     error: function(obj)
-			     {
-			       console.log("No funciono")
-			     }
-			});
 	}
 
 	function openFancyBox(content, width, height, closeOnClick) {
