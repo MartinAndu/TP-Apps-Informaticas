@@ -249,16 +249,12 @@
 			     success: function(obj)
 			     {
 			     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
-			for (let i = 0;i < obj.length; i++) {
-						//if (	obj[i].itemId == "Iceland") str = "tropical";					     		
-						str += obj[i].itemId + '/';
-		     	}
-						
-			     	let arrayString = obj.length == 0? 'Iceland' : '';
-			     	str += arrayString;
+
+			     	str += obj.length == 0? 'Iceland' : getMax(obj);
+
 			     	alert(str);
 
-			     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : obj[0].itemId);
+			     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : getMax(obj));
 					changeImage(imagesList[currentListIndex]);
 			     },
 			     error: function(obj)
@@ -268,6 +264,19 @@
 			     }
 			});
 
+	}
+
+	function getMax(obj) {
+		let max = 0;
+		let str = '';
+	   for (key in obj) {  
+	     if ( obj[key].value >= max) {
+	       str = obj[key].itemId;
+	       max = obj[key].value;
+	     }   
+	   }
+
+	   return str;
 	}
 
 	function uploadImage() {
