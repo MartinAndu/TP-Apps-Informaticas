@@ -1,0 +1,7 @@
+Destino:chile Valor:4.1960713633549895
+Destino:australia Valor:3.8871018985481305
+Destino:paraguay Valor:3.5797223124300404
+Destino:brazil Valor:3.0791815413014634
+Destino:uruguay Valor:2.8559579621695743
+Destino:colombia Valor:2.52604782771969
+Destino:peru Valor:2.4445478317042495

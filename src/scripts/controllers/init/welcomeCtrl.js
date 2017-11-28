@@ -1,0 +1,502 @@
+
+
+	var imagesList = [];
+	var currentListIndex = 0;
+	var contadorLikes = 0;
+	var URLJSON = "./json/placesToVisitDetails.json"; 
+
+	function init() {
+		$('#app').empty().load('templates/home.html');
+		$('body').attr('style',`
+			background-image : url("images/travel.jpg");
+			background-size: 100% 120%;
+		`);	
+
+		addHandlers();
+		loadImageDetails(successPlacesList);
+	}
+
+
+	function addHandlers() {
+		$(document).on('click', '#infoImage', function(e) {
+			loadImageDetails(successPlacesDetails);
+		})
+
+		$(document).on('click', '#previous-image', function(e) {
+			if (currentListIndex > 0) {
+				currentListIndex--;
+			} else {
+				currentListIndex = 0;
+			}
+			changeImage(imagesList[currentListIndex]);
+		});
+
+		$(document).on('click', '#next-image', function(e) {
+			if (currentListIndex < imagesList.length - 1) {
+				currentListIndex++;
+			} else {
+				currentListIndex = 0;
+			}
+			changeImage(imagesList[currentListIndex]);
+		});
+
+		$(document).on('click', '#recommendations', function(e) {
+			recomendar();
+
+		});
+
+		$(document).on('click', '#recommendationButton', function(e) {
+			var obj = { "userName" : "51"};
+			var myJSON = JSON.stringify(obj);
+
+			var formURL = "http://localhost:8080/recomendar";
+				$.ajax({
+				     method: "POST",
+				     url: formURL,
+				     data: myJSON,
+            		 contentType: 'application/json',
+					 crossDomain : true,
+				     success: function(obj)
+				     {
+				     	console.log(obj[0]);
+				     	$.fancybox.close();
+				     },
+				     error: function(obj)
+				     {
+				       console.log("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
+		})
+
+		$(document).on('click','#notlike', function(e){
+			likear(0);
+		})
+
+		$(document).on('click','#like', function(e) {
+			likear(5);
+		});
+
+		$(document).on('click','#uploadImage', function(e) {
+			uploadImage();
+		});
+
+	}
+
+
+	function loadImageDetails(successPlaces) {
+		var formURL = "./json/placesToVisitDetails.json";
+			$.ajax({
+			     url: formURL,
+			     type: 'GET',
+			     data:  null,
+			     mimeType:"multipart/form-data",
+			     contentType: false,
+			     cache: false,
+			     processData:false,
+			     success: function(obj)
+			     {
+			     	successPlaces(obj);			     	
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono")
+			     }
+			});
+	}
+
+	function successPlacesList(obj) {
+		let ajaxData = JSON.parse(obj);
+
+		for (var key in ajaxData) {
+			imagesList.push(key)
+		}
+
+		currentListIndex = 0;
+		changeImage(imagesList[currentListIndex]);
+	}
+
+	function successPlacesDetails(obj) {
+		let ajaxData = JSON.parse(obj);
+		let strLocationName = imagesList[currentListIndex];
+		let content = `
+		<div class="landscape">
+			<div class="row">
+				  <div class="col-xs-6 col-md-6">
+						<img src="images/` + strLocationName + `.jpg" style="width: 107%;margin-right: 45%;">
+				</div>	
+						<div class="col-xs-6 col-md-6" >
+							<div class="form-style-3">
+								<form>
+									<fieldset>
+										<legend>` + ajaxData[strLocationName].title + `</legend>
+										<div class="row ">
+											<span class="required">Nombre</span> ` + ajaxData[strLocationName].name + `
+										</div>
+										<div class="row ">
+											<span class="required">Descripcion</span> ` + ajaxData[strLocationName].description + `
+										</div>
+										<div class="row ">
+											<span class="required">Disponibilidad</span>` + ajaxData[strLocationName].availability + `
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+						
+
+			        </div>
+			        <button class="btn btn-primary bottom-space" style="">Reservar Lugar</button></div>
+		</div>
+		`;
+
+		openFancyBox(content,250, 250, true);
+	}
+
+
+
+
+	function likear(rating) { 
+			if ( contadorLikes != 5) {
+
+
+				contadorLikes ++;
+			
+				var formURL = "http://localhost:8080/likear";
+				var userName;
+				var price;
+				
+				$.ajax({
+			     url: URLJSON,
+			     type: 'GET',
+			     data:  null,
+			     mimeType:"multipart/form-data",
+			     contentType: false,
+			     cache: false,
+			     processData:false,
+			     success: function(obj)
+			     {
+			     	let ajaxData = JSON.parse(obj);
+			     	let strLocationName = imagesList[currentListIndex];
+			     	//price = ajaxData[strLocationName].price;
+			     	clima = ajaxData[strLocationName].environment;
+
+			     	let myJSON = 	{
+						
+					"userName" : "51",
+					"place" : imagesList[currentListIndex],
+					"rating" : rating,
+					"price" :  "10",
+					"environment" : clima
+				}
+ 
+				$.ajax({
+				     method: "POST",
+				     url: formURL,
+				     data: JSON.stringify(myJSON),
+            		 contentType: 'application/json',
+					 crossDomain : true,
+				     success: function(obj)
+				     {
+				     	console.log(obj[0]);
+				     },
+				     error: function(obj)
+				     {
+				       console.log("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
+
+				if (currentListIndex < imagesList.length - 1) {
+					currentListIndex++;
+				} else {
+					currentListIndex = 0;
+				}
+
+
+					changeImage(imagesList[currentListIndex]);
+
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono, la carga los datos de la imagen, like");
+			     }
+				});
+				    
+				
+			} else {
+					contadorLikes = 0;
+					ajaxCallRecomendar();
+			}
+
+
+
+	}
+
+	function ajaxCallRecomendar() {
+		
+		var formURL = "http://localhost:8080/recomendar";
+
+		var obj = { "userName" : "51"};
+		var myJSON = JSON.stringify(obj);
+
+			$.ajax({
+			     method: "POST",
+			     url: formURL, 	
+			     data: myJSON,
+				 contentType: 'application/json',
+				 crossDomain : true,
+			     success: function(obj)
+			     {
+			     	let str = 'Se obtuvieron las siguientes recomendaciones: ';
+
+			     	str += obj.length == 0? 'Iceland' : getMax(obj);
+
+			     	alert(str);
+
+			     	currentListIndex = imagesList.indexOf(obj.length == 0? 'Iceland' : getMax(obj));
+					changeImage(imagesList[currentListIndex]);
+			     },
+			     error: function(obj)
+			     {
+			       console.log("No funciono");
+			     	$.fancybox.close();
+			     }
+			});
+
+	}
+
+	function getMax(obj) {
+		let max = 0;
+		let str = '';
+	   for (key in obj) {  
+	     if ( obj[key].value >= max) {
+	       str = obj[key].itemId;
+	       max = obj[key].value;
+	     }   
+	   }
+
+	   return str;
+	}
+
+	function uploadImage() {
+		let content = `
+			<div class="landscape">
+				<div class="row">
+					<div class="col-xs-12 col-md-12" >
+						<div class="form-style-3">
+							<form>
+								<fieldset>
+									<legend>Sube imagen</legend>
+									<div class="row ">
+										<span class="required">Titulo</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="title" class="required" type="text">
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Subir imagen</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<form enctype="multipart/form-data" action="/upload/image" method="post">
+											    <input id="image-file" type="file" />
+											    <input hidden id="fileName" type="text" />
+											</form>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Ruta de Archivo</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="imagePath" class="required" type="text">
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Disponibilidad</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="availability" class="required" type="text">
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Tipo de Clima</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="1" type="radio"> Frio
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="7" type="radio"> Humedo
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="5" type="radio"> Seco
+										</div>
+
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="10" type="radio"> Caluroso
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Rango de Precios a Pagar</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Descripcion adicional</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input id="description" type="text"></input>
+										</div>
+									</div>
+								</fieldset>
+			     				<button id="submitImage" class="btn btn-primary bottom-space" style="">Subir Todo</button></div>
+							</form>
+						</div>
+					</div>
+			</div>
+		`;
+
+		
+		openFancyBox(content, 2000, 2000, false);
+
+		$(document).on('change', '#image-file', function() {
+			$('#fileName').val(this.files[0].name);
+		});
+
+		$(document).on('click','#submitImage', function(e){
+
+
+				var formURL = "http://localhost:8080/uploadFile";
+				var environmentType = {
+					"1" : "clima_frio",
+					"5" : "clima_seco",
+					"7" : "clima_humedo",
+					"10" : "clima_caluroso"
+				}
+				var obj = {
+					"title" : $('#title').val(),
+					"name" : ($('#fileName').val()).replace(/\.[^/.]+$/,""),
+					"description" : $('#description').val(),
+					"availability" : $('#availability').val(),
+					"type" : environmentType[$('.environment:checked').val()],
+					"environment" : $('.environment:checked').val(),
+					"ruta" : $('#imagePath').val() + '/' + $('#fileName').val()
+				}
+
+				var myJSON = JSON.stringify(obj);
+				$.ajax({
+				     method: "POST",
+				     url: formURL, 	
+				     data: myJSON,
+					 contentType: 'application/json',
+					 crossDomain : true,
+				     success: function(obj)
+				     {
+				     	alert('Imagen subida correctamente');
+						loadImageDetails(successPlacesList);
+				     	$.fancybox.close();
+				     },
+				     error: function(obj)
+				     {
+				        alert("No funciono");
+				     	$.fancybox.close();
+				     }
+				});
+
+		});
+	}
+
+	function urlExists(url)
+	{
+		$.ajax({
+		    url: url,
+		    type:'HEAD',
+		    error: function()
+		    {
+		        return false;
+		    },
+		    success: function()
+		    {
+		    	return true;
+		    }
+		});
+	}
+
+
+	function changeImage(image) {
+		$('#welcomeImage').attr('src', 'images/' + image + '.jpg')
+	}
+
+	function loadBodyImage() {
+	$('body').attr('style',`
+			background-image : url("images/travel.jpg");
+			background-size: 100% 120%;
+		`);	
+	}
+
+	function recomendar() {
+		let content = `
+			<div class="landscape">
+				<div class="row">
+					<div class="col-xs-12 col-md-12" >
+						<div class="form-style-3">
+							<form>
+								<fieldset>
+									<legend>Encuesta</legend>
+									<div class="row ">
+										<span class="required">Tipo de Clima</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="10" type="radio"> Frio
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="7" type="radio"> Humedo
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="10" type="radio"> Caluroso
+										</div>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input class="required environment" name="weather" value="5" type="radio"> Seco
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Rango de Precios a Pagar</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
+									</div>
+									<div class="row ">
+										<span class="required">Descripcion adicional</span>
+										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
+											<input type="text"></input>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+					</div>
+			     	<button id="recommendationButton" class="btn btn-primary bottom-space" style="">Terminar</button></div>
+			</div>
+		`;
+
+		$('[class*="fancybox"').attr('style','width : 300px; height : 300px')
+		openFancyBox(content, 2000, 2000, false);
+	}
+
+	function openFancyBox(content, width, height, closeOnClick) {
+
+
+
+		// Set custom style, close if clicked, change title type and overlay color
+		$("#trip-open").fancybox({
+		 	content :  content,
+			closeClick : closeOnClick,
+			closeBtn : closeOnClick,
+			arrows : true,
+			height : height,
+			width : width,
+			helpers : {
+				title : {
+					type : 'inside'
+				}
+			}
+		}).trigger('click').trigger('click');
+
+	}
+
+
+	
