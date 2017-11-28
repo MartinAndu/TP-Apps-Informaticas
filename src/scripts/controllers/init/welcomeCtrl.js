@@ -111,6 +111,9 @@
 		for (var key in ajaxData) {
 			imagesList.push(key)
 		}
+
+		currentListIndex = 0;
+		changeImage(imagesList[currentListIndex]);
 	}
 
 	function successPlacesDetails(obj) {
@@ -377,8 +380,6 @@
 				     {
 				     	alert('Imagen subida correctamente');
 						loadImageDetails(successPlacesList);
-						currentListIndex = 0;
-						changeImage(imagesList[currentListIndex]);
 				     	$.fancybox.close();
 				     },
 				     error: function(obj)
