@@ -36,10 +36,10 @@ public class Recomendator {
     public List<RecommendedItem> recomend(String Usuario) throws IOException, LibrecException {
         List<RecommendedItem> recommendedItemList=reco(Usuario);
         int cont=0;
-        while(cont<10) {
+        while(cont<100) {
             cont++;
             recommendedItemList = reco(Usuario);
-            if(!recommendedItemList.isEmpty()) {
+            if(recommendedItemList.size()>=1 && recommendedItemList.get(recommendedItemList.size()-1).getValue()>=3) {
                 return recommendedItemList;
             }
         }

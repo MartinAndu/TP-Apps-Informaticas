@@ -23,12 +23,13 @@ public class FiltroRecos {
         List<RecommendedItem> nuevosReco=new LinkedList<RecommendedItem>();
         for(RecommendedItem recommendedItem : recomendadosOriginales){
             if (Objects.equals(recommendedItem.getUserId(),usuario.toString())) {
-                if (counter > 0 && !Objects.equals(recomendadosOriginales.get(counter - 1).getUserId(),usuario.toString())){
+                /*if (counter > 0 && !Objects.equals(recomendadosOriginales.get(counter - 1).getUserId(),usuario.toString())){
                     nuevosReco.add(recomendadosOriginales.get(counter - 1));
                 }
                 if (counter+1<recomendadosOriginales.size() && !Objects.equals(recomendadosOriginales.get(counter + 1).getUserId(),usuario.toString())){
                     nuevosReco.add(recomendadosOriginales.get(counter + 1));
-                }
+                }*/
+                nuevosReco.add(recomendadosOriginales.get(counter));
             }
             counter++;
         }
