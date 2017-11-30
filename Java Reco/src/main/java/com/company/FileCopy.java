@@ -7,8 +7,7 @@ public class FileCopy {
     String destinationFile = "../src/images/";
 
     public FileCopy(String sourceFile,String name) {
-        destinationFile += name;
-        destinationFile += ".jpg";
+        destinationFile = destinationFile.concat(name).concat(".jpg");
         System.out.println("Desde: " + sourceFile);
         System.out.println("Hacia: " + destinationFile );
 

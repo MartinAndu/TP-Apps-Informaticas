@@ -303,14 +303,14 @@
 											</form>
 										</div>
 									</div>
-									<div class="row ">
+									<div class="row " hidden >
 										<span class="required">Ruta de Archivo</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input id="imagePath" class="required" type="text">
+											<input hidden id="imagePath" class="required" type="text" value="/home/martin/Desktop">
 										</div>
 									</div>
 									<div class="row ">
-										<span class="required">Disponibilidad</span>
+										<span class="required">Rango de Precios a Pagar</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
 											<input id="availability" class="required" type="text">
 										</div>
@@ -332,15 +332,9 @@
 										</div>
 									</div>
 									<div class="row ">
-										<span class="required">Rango de Precios a Pagar</span>
-										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input type="text"></input>
-										</div>
-									</div>
-									<div class="row ">
 										<span class="required">Descripcion adicional</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input id="description" type="text"></input>
+											<input id="description" type="text" style="padding-bottom: 60px;"></input>
 										</div>
 									</div>
 								</fieldset>
@@ -356,6 +350,7 @@
 
 		$(document).on('change', '#image-file', function() {
 			$('#fileName').val(this.files[0].name);
+
 		});
 
 		$(document).on('click','#submitImage', function(e){
@@ -441,16 +436,16 @@
 									<div class="row ">
 										<span class="required">Tipo de Clima</span>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required environment" name="weather" value="10" type="radio"> Frio
+											<input class="required environment" name="weather" value="1" type="radio" data-place="Iceland"> Frio
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required environment" name="weather" value="7" type="radio"> Humedo
+											<input class="required environment" name="weather" value="7" type="radio" data-place="LightHouse"> Humedo
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required environment" name="weather" value="10" type="radio"> Caluroso
+											<input class="required environment" name="weather" value="10" type="radio" data-place="Tropical"> Caluroso
 										</div>
 										<div class="row" style="margin-left: 0px;margin-right: 0px;display: inline-block;">
-											<input class="required environment" name="weather" value="5" type="radio"> Seco
+											<input class="required environment" name="weather" value="5" type="radio" data-place="MachuPicchu"> Seco
 										</div>
 									</div>
 									<div class="row ">
